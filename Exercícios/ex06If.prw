@@ -3,7 +3,7 @@ escrever o maior deles.*/
 
 #include 'protheus.ch'
 
-user function ex07()
+user function ex06()
 
 local nNum := 0
 local nNum1 := 0 

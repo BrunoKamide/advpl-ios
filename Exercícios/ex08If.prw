@@ -11,7 +11,7 @@ o desconto será de 3%
 #include 'protheus.ch'
 #define ENTER Chr(13) + Chr(10)
 
-user function ex09()
+user function ex08()
 
 local cProduto := ''
 local nQuantidade := 0
@@ -20,7 +20,7 @@ local nTotal := 0
 local nDesconto := 0
 local nTotalaPagar := 0
 
-msginfo("Nos passe algumas informações do produto, para saber qual será o desconto.")
+msginfo("Nos passe algumas informações do produto, para saber qual será o desconto." + FWInputBox("xsvdczdcd") + )
 cProduto := FWInputBox("Informe um produto.")
 nQuantidade := VAL(FWInputBox("Informe a quantidade de produtos."))
 nPreco := VAL(FWInputBox("Informe o valor do produto."))

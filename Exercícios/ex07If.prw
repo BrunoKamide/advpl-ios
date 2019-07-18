@@ -2,7 +2,7 @@
 
 #include 'protheus.ch'
 
-user function ex08()
+user function ex07()
 
 local nNum := VAL(FWInputBox("Informe um número para saber se ele é positivo, negativo ou igual a zero"))
 

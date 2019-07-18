@@ -1,3 +1,9 @@
+/*2. Num triângulo retângulo, segundo Pitágoras, o quadrado da
+hipotenusa (a) é igual à soma dos quadrados dos catetos (b e c), isto é,
+a2 = b2+c2. Numa função, receba os valores dos catetos e mostre na tela o
+valor da hipotenusa.*/
+
+
 #include 'protheus.ch'
 
 user function hipotenusa()

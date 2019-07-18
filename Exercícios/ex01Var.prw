@@ -1,3 +1,6 @@
+// 1. Faça uma função para receber 2 números do usuário e mostre a
+// soma na tela.
+
 #include 'protheus.ch'
 
 user function SomaNum()

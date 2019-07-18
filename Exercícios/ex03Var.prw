@@ -1,3 +1,9 @@
+/*3. O sistema de avaliação de determinada disciplina, é composto por
+três provas. A primeira prova tem peso 2, a segunda tem peso 3 e a
+terceira tem peso 5. Faça um algoritmo para calcular a média final de um
+aluno desta disciplina.*/
+
+
 #include 'protheus.ch'
 
 user function Media()
