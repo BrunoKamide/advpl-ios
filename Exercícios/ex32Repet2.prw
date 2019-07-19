@@ -5,3 +5,18 @@ a. A menor altura do grupo;
 b. A média de altura das mulheres;
 c. O número de homens;
 d. O sexo da pessoa mais alta.*/
+
+#include 'protheus.ch'
+#define br Chr(13) + Chr(10)
+
+User Function ex32()
+    Local cCracter := {}
+
+    aAdd(cCracter, {'Masc', 1.75})
+    aAdd(cCracter, {'Fem', 1.51})
+    aAdd(cCracter, {'Masc', 1.78})
+    aAdd(cCracter, {'Fem', 1.65})
+    aAdd(cCracter, {'Fem', 1.85})
+    aAdd(cCracter, {'Masc', 1.63})
+
+     
