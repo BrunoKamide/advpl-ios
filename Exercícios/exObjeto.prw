@@ -25,7 +25,7 @@ oFont := TFont():New('Courier new',,-18,.T.)
  
 @ 80,10 CHECKBOX oCheck VAR lCheck FONT oFont PROMPT "Selecione" SIZE 60,15 OF oDlg PIXEL
 
-@150,120 BUTTON "Confirmar" FONT oFont SIZE 080, 047 PIXEL OF oDlg ACTION u_Botao(oDlg,cNome)
+@150,120 BUTTON "Confirmar" FONT oFont SIZE 080, 047 PIXEL OF oDlg ACTION u_Botao(oDlg)
 
 ACTIVATE MSDIALOG oDlg CENTERED
 
@@ -34,8 +34,7 @@ ACTIVATE MSDIALOG oDlg CENTERED
 
 Return
 
-User Function Botao(oDlg,cNome)
-Alert(cNome)
+User Function Botao(oDlg)
 oDlg:End()
 Return
 
