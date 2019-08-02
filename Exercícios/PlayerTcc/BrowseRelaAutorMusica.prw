@@ -1,10 +1,10 @@
 #include 'Protheus.ch'
 
-User Function musicas() //O nome da function foi definido com o nome do Browse
+User Function ios02() //O nome da function foi definido com o nome do Browse
 Local oBrowse := FWMBrowse():New()
 
 oBrowse:SetAlias("ZA1")
-oBrowse:SetMenuDef('BrowseMusicas') 
+//oBrowse:SetMenuDef('ios02') 
 /* Se Utiliza este método quando o nome da função principal não possui o mesmo
 nome do fonte .prw */
 
@@ -13,9 +13,9 @@ oBrowse:Activate() // \o/
 Return 
 
 //Função que pertence somente a este fonte
-static function Menudef()
-
-return FWMVCMenu("BrowseMusicas") //Menu Padrão com C.R.U.D.
+Static Function Menudef()
+ 
+Return FWMVCMenu('ios02') //Menu Padrão com C.R.U.D.
 
 //MVC - Model (Dados e regra de negócio) 
 //      View (Interface) 
@@ -26,11 +26,10 @@ Static Function ModelDef() //Não tinha teto não tinha nada
 Local oModel := MPFormModel():New("ZA1MODEL")
 Local oStruZA1 := FWFormStruct(1, "ZA1")
 Local oStruZA2 := FWFormStruct(1, "ZA2")
-local bValid := 
 //Local bPos   := {|oModelField| PosVldAutor(oModelField) } 
 //Form Field (Campo do formulário)
 oModel:AddFields("ZA1MASTER",/* Owner */,oStruZA1,/* */)
-oModel:AddGrid( 'ZA2DETAIL', 'ZA1MASTER', oStruZA2) 
+oModel:AddGrid( 'ZA2DETAIL', 'ZA1MASTER', oStruZA2 ) 
 oModel:SetRelation( 'ZA2DETAIL', { {'ZA2_FILIAL', "xFilial('ZA2')"},;
  {"ZA2_MUSICA" , "ZA1_MUSICA"} }, ZA2->( IndexKey( 1 ) ) )
 
@@ -61,12 +60,3 @@ oView:SetOwnerView("ZA2_VIEW","BOXZA2")
 oView:EnableTitleView('ZA2_VIEW') //habilita a descricao do submodelo
 
 Return oView
-
-
-static function ValidAutor(oModelGrid)
-    local lRet := .F.
-    local cCodAutor := oModelGrid:GetValue('VA2_AUTOR')
-
-
-
-return lRet
