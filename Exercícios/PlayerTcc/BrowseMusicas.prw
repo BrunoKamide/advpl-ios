@@ -1,72 +1,53 @@
-#include 'Protheus.ch'
+#include 'protheus.ch'
 
-User Function musicas() //O nome da function foi definido com o nome do Browse
-Local oBrowse := FWMBrowse():New()
+user function musicas()
+local oBrowse := FWMBrowse():New()
 
 oBrowse:SetAlias("ZA1")
-oBrowse:SetMenuDef('BrowseMusicas') 
-/* Se Utiliza este método quando o nome da função principal não possui o mesmo
-nome do fonte .prw */
+oBrowse:SetMenuDef("BrowseMusicas")
 
-oBrowse:Activate() // \o/
+oBrowse:Activate()
 
-Return 
+return
 
-//Função que pertence somente a este fonte
 static function Menudef()
 
-return FWMVCMenu("BrowseMusicas") //Menu Padrão com C.R.U.D.
+return FWMVCMenu("BrowseMusicas")
 
-//MVC - Model (Dados e regra de negócio) 
-//      View (Interface) 
-//      Controller (dentro da lib)
+static function ModelDef()
+    local oModel := MPFormModel():New("Musicas01")
+    local oStruZA1 := FWFormStruct(1, "ZA1")
+    local bPos := {|oModelField| PosVldAutor(oModelField) }
 
+    oModel:AddFields("ZA1MASTER", ,oStruZA1, , bPos)
+    oModel:AddGrid("ZA2DETAIL", "ZA1MASTER", oStruZA2)
+    oModel:SetRelation("ZA2DETAIL", {{"ZA2_FILIAL", "xFilial('ZA2')"}, {"ZA2_MUSICA", "ZA1_MUSICA"}},ZA2->(IndexKey(1)))
 
-Static Function ModelDef() //Não tinha teto não tinha nada
-Local oModel := MPFormModel():New("ZA1MODEL")
-Local oStruZA1 := FWFormStruct(1, "ZA1")
-Local oStruZA2 := FWFormStruct(1, "ZA2")
-local bValid := 
-//Local bPos   := {|oModelField| PosVldAutor(oModelField) } 
-//Form Field (Campo do formulário)
-oModel:AddFields("ZA1MASTER",/* Owner */,oStruZA1,/* */)
-oModel:AddGrid( 'ZA2DETAIL', 'ZA1MASTER', oStruZA2) 
-oModel:SetRelation( 'ZA2DETAIL', { {'ZA2_FILIAL', "xFilial('ZA2')"},;
- {"ZA2_MUSICA" , "ZA1_MUSICA"} }, ZA2->( IndexKey( 1 ) ) )
+return oModel
 
-oModel:GetModel( 'ZA1MASTER' ):SetDescription( 'Dados da Musica' )
-oModel:GetModel( 'ZA2DETAIL' ):SetDescription( 'Dados do Autor Da Musica'  )
+static function PosVldAutor(oModelField)
+    local lTudoOk := .T.
+    local dCria := oModelField:GetValue("ZA1_DATA")
+    local cMusica := oModelField:GetValue("ZA1_TITULO")
+    
+    if dCria > Date()
+        lTudoOk := .F.
+        Help(,, "Help",,"Não adivinhe o futuro", 1, 0,,,,,,{"Digite uma data válida."})
+    Elseif Empty(cMusica)
+        lTudoOk := .F.
+        Help(,, "Help",,"O campo está vazío", 1, 0,,,,,,{"Digite um nome."})
+    EndIf
 
-Return oModel
+return lTudoOk
 
+static function ViewDef()
+local oView := FWFormView():New()
+local oStruct := FWFormStruct(2, "ZA1")
+local oStructZA2 := FWFormStruct(2, "ZA2")
 
-Static Function ViewDef() //O.O
-Local oView := FWFormView():New()
-Local oStruct := FWFormStruct(2, "ZA1")
-Local oStructZA2 := FWFormStruct(2, "ZA2")
-oView:SetModel(ModelDef()) //return do ModelDef para SetModel
+    oView:SetModel(ModelDef())
+    oView:AddField("ZA1_VIEW", oStruct, "ZA1MASTER") 
+    oView:CreateHorizontalBox("BOXZA1", 100)
+    oView:SetOwnerView("ZA1_VIEW", "BOXZA1") 
 
-              //ID       , Estrutura, ID do Model
-oView:AddField("ZA1_VIEW", oStruct, "ZA1MASTER")
-oView:AddGrid( 'ZA2_VIEW', oStructZA2, 'ZA2DETAIL' )
-// Define campos que terao Auto Incremento
-oView:AddIncrementField( 'ZA2_VIEW', 'ZA2_ITEM' )
-
-oView:CreateHorizontalBox("BOXZA1", 50)
-oView:CreateHorizontalBox("BOXZA2", 50)
-
-oView:SetOwnerView("ZA1_VIEW","BOXZA1") //Cajuzinho ?
-oView:SetOwnerView("ZA2_VIEW","BOXZA2") 
-
-oView:EnableTitleView('ZA2_VIEW') //habilita a descricao do submodelo
-
-Return oView
-
-
-static function ValidAutor(oModelGrid)
-    local lRet := .F.
-    local cCodAutor := oModelGrid:GetValue('VA2_AUTOR')
-
-
-
-return lRet
+return oView
